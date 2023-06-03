@@ -1,4 +1,5 @@
 const mqtt = require('mqtt')
+const canvascharts = require('@canvasjs/charts')
 const clientId = 'mqttjs_' + Math.random().toString(16).substr(2, 8)
 const options = {
   keepAlive: 60,
@@ -15,6 +16,22 @@ var host = window.location.host
 if (process.env.NODE_ENV === 'development') {
   var host = process.env.HOST
 }
+
+// Chart setup
+chart_data = {
+  'solar': {next: 0, points: []},
+  'PSU': {next: 0, points: []},
+  'Battery': {next: 0, points: []},
+  'Load': {next: 0, points: []}
+}
+charts = {
+  'solar': new canvascharts.Chart("solarChart", {data: [{type: "line", dataPoints: chart_data['solar'].points}]}),
+  'PSU': new canvascharts.Chart("psuChart", {data: [{type: "line", dataPoints: chart_data['PSU'].points}]}),
+  'Battery': new canvascharts.Chart("batteryChart", {data: [{type: "line", dataPoints: chart_data['Battery'].points}]}),
+  'Load': new canvascharts.Chart("loadChart", {data: [{type: "line", dataPoints: chart_data['Load'].points}]})
+}
+
+// MQTT Client setup
 const client = mqtt.connect(`ws://${host}/mqtt`, options)
 client.on('connect', function(){
   console.log("Connected")
@@ -61,7 +78,7 @@ function updateVoltage(sensor, value){
 function updatePower(sensor, value){
   let query = `#${sensor} .power`
   let span = document.querySelector(query)
-
+  updateChart(sensor, value)
   span.innerHTML = formatPower(value)
 }
 
@@ -73,4 +90,11 @@ function formatCurrent(value){
 function formatPower(value){
   number = (Math.round(Number(value)) / 1000).toFixed(3)
   return number
+}
+
+async function updateChart(sensor, value){
+  chart_data[sensor].points.push({x: chart_data[sensor].next, y: (Number(value) / 1000)})
+  chart_data[sensor].next += 1
+  charts[sensor].render()
+
 }

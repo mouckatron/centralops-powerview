@@ -38,6 +38,12 @@
        margin-left: 1em;
      }
 
+     .box .chart {
+      position: absolute;
+      right: 0; bottom: 0;
+      width: 70%; height: 70%;
+     }
+
      .voltage {
        color: #00f;
      }
@@ -74,24 +80,28 @@
         <span class="voltage"></span>
         <span class="current"></span>
         <span class="power"></span>
+        <div id="solarChart" class="chart"></div>
       </div>
       <div id="PSU" class="box">
         <h3>PSU</h3>
         <span class="voltage"></span>
         <span class="current"></span>
         <span class="power"></span>
+        <div id="psuChart" class="chart"></div>
       </div>
       <div id="Battery" class="box">
         <h3>Battery</h3>
         <span class="voltage"></span>
         <span class="current"></span>
         <span class="power"></span>
+        <div id="batteryChart" class="chart"></div>
       </div>
       <div id="Load" class="box">
         <h3>Load</h3>
         <span class="voltage"></span>
         <span class="current"></span>
         <span class="power"></span>
+        <div id="loadChart" class="chart"></div>
       </div>
     </div>
     <script type="module" src="index.js"></script>
