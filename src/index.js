@@ -66,11 +66,11 @@ function updatePower(sensor, value){
 }
 
 function formatCurrent(value){
-  number = (Number(value) / 1000).toPrecision(3)
+  number = (Math.round(Number(value)) / 1000).toFixed(3)
   return number
 }
 
 function formatPower(value){
-  number = (Number(value) / 1000).toPrecision(3)
+  number = (Math.round(Number(value)) / 1000).toFixed(3)
   return number
 }
