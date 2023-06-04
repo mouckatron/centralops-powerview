@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "",
     "scripts": {
-        "start": "NODE_ENV=development parcel serve src/index.html --dist-dir run",
+        "start": "NODE_ENV=development parcel serve src/index.html --dist-dir run --no-cache",
         "build": "NODE_ENV=production parcel build --public-url . --no-source-maps src/index.html"
     },
     "devDependencies": {
