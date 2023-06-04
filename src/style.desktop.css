@@ -1,0 +1,38 @@
+@media screen and (min-width: 1024px) {
+    #powerview {
+        background-color: #fff;
+        position: absolute;
+        margin: 1em;
+        top: 0; bottom:0;
+        left: 0; right: 0;
+    }
+
+    .box {
+        position: absolute;
+        height: 13em;
+        width: 18em;
+    }
+
+    .box .chart {
+        position: relative;
+        max-height:8em;
+    }
+
+    #solar {
+        top: 0;
+        left: 0;
+    }
+    #PSU {
+        bottom: 0;
+        left: 0;
+    }
+    #Battery {
+        bottom: 0;
+        left: 43%;
+    }
+    #Load {
+        top: 50%;
+        right: 0;
+    }
+
+}

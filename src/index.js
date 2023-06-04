@@ -1,5 +1,5 @@
 const mqtt = require('mqtt')
-const canvascharts = require('@canvasjs/charts')
+import Chart from 'chart.js/auto'
 const clientId = 'mqttjs_' + Math.random().toString(16).substr(2, 8)
 const options = {
   keepAlive: 60,
@@ -18,17 +18,88 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Chart setup
-chart_data = {
-  'solar': {next: 0, points: []},
-  'PSU': {next: 0, points: []},
-  'Battery': {next: 0, points: []},
-  'Load': {next: 0, points: []}
+var chart_data = {
+  'solar': {next: 0, labels: [...Array(60).keys()], points: []},
+  'PSU': {next: 0, labels: [...Array(60).keys()], points: []},
+  'Battery': {next: 0, labels: [...Array(60).keys()], points: []},
+  'Load': {next: 0, labels: [...Array(60).keys()], points: []}
 }
-charts = {
-  'solar': new canvascharts.Chart("solarChart", {data: [{type: "line", dataPoints: chart_data['solar'].points}]}),
-  'PSU': new canvascharts.Chart("psuChart", {data: [{type: "line", dataPoints: chart_data['PSU'].points}]}),
-  'Battery': new canvascharts.Chart("batteryChart", {data: [{type: "line", dataPoints: chart_data['Battery'].points}]}),
-  'Load': new canvascharts.Chart("loadChart", {data: [{type: "line", dataPoints: chart_data['Load'].points}]})
+var chart_config = {
+  animations: false,
+  plugins: {
+    legend: {
+      display: false
+    },
+    tooltip: {
+      enabled: false
+    }
+  },
+  elements: {
+    point: {
+      radius: 0
+    },
+    line: {
+      tension: 0.2
+    }
+  },
+  scales: {
+    x: {
+        display: false
+    },
+    y: {
+      min: 0
+    }
+  }
+}
+var charts = {
+  'solar': new Chart(document.getElementById("solarChart"), {
+    type: "line",
+    options: chart_config,
+    data: {
+      labels: chart_data["solar"].labels,
+      datasets: [{
+        label: 'Power',
+        fill: 'origin',
+        data: chart_data["solar"].points
+      }]
+    }
+  }),
+  'PSU': new Chart(document.getElementById("psuChart"), {
+    type: "line",
+    options: chart_config,
+    data: {
+      labels: chart_data["PSU"].labels,
+      datasets: [{
+        label: 'Power',
+        fill: 'origin',
+        data: chart_data["PSU"].points
+      }]
+    }
+  }),
+  'Battery': new Chart(document.getElementById("batteryChart"), {
+    type: "line",
+    options: chart_config,
+    data: {
+      labels: chart_data["Battery"].labels,
+      datasets: [{
+        label: 'Power',
+        fill: 'origin',
+        data: chart_data["Battery"].points
+      }]
+    }
+  }),
+  'Load': new Chart(document.getElementById("loadChart"), {
+    type: "line",
+    options: chart_config,
+    data: {
+      labels: chart_data["Load"].labels,
+      datasets: [{
+        label: 'Power',
+        fill: 'origin',
+        data: chart_data["Load"].points
+      }]
+    }
+  })
 }
 
 // MQTT Client setup
@@ -93,8 +164,9 @@ function formatPower(value){
 }
 
 async function updateChart(sensor, value){
-  chart_data[sensor].points.push({x: chart_data[sensor].next, y: (Number(value) / 1000)})
-  chart_data[sensor].next += 1
-  charts[sensor].render()
-
+  chart_data[sensor].points.push((Number(value) / 1000))
+  if (chart_data[sensor].points.length > 60){
+    chart_data[sensor].points.shift()
+  }
+  charts[sensor].update()
 }

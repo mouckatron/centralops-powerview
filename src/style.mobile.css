@@ -1,0 +1,40 @@
+@media screen and (max-width:500px) {
+    #powerview {
+        display: flex;
+        flex-flow: column wrap;
+
+    }
+    .box {
+        border: 0.3em solid #222;
+        position: relative;
+        height: 100px;
+        width: 100%;
+        margin: 10px;
+    }
+
+    .box span {
+        display: inline-block;
+    }
+
+    .box .chart {
+        position: relative;
+        max-height: 8em;
+    }
+
+    #solar {
+        top: 0;
+        left: 0;
+    }
+    #PSU {
+        top: 0;
+        left: 0;
+    }
+    #Battery {
+        top: 0;
+        left: 0;
+    }
+    #Load {
+        top: 0;
+        left: 0;
+    }
+}

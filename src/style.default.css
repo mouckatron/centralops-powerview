@@ -1,0 +1,51 @@
+body {
+    background-color: #fff;
+    height: 100%;
+    font-size: 10px 1em;
+}
+
+.box {
+    border: 1px solid #000;
+    border-radius: 4px;
+    padding: 0;
+}
+
+.box .header {
+    padding: 0.5em;
+    background-color: #006599;
+    color: #fff;
+}
+
+.box h3 {
+    font-family: sans-serif;
+    font-size: 2em;
+    margin: 0;
+    padding:0;
+}
+
+.box .content {
+    margin: 0;
+    padding: 0;
+}
+
+.box span {
+    display: inline-block;
+    font-family: sans-serif;
+    font-size: 1.5em;
+    width: 32%;
+    text-align: center;
+}
+
+.box .chart {
+    z-index:0;
+}
+
+.voltage {
+    color: #00f;
+}
+.current {
+    color: #107010;
+}
+.power {
+    color: #ff9933;
+}
