@@ -26,6 +26,8 @@ var chart_data = {
 }
 var chart_config = {
   animations: false,
+  responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     legend: {
       display: false

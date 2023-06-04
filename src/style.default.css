@@ -40,6 +40,11 @@ body {
     z-index:0;
 }
 
+.box .chart canvas {
+    width: 100% !important;
+    height: 8em !important;
+}
+
 .voltage {
     color: #00f;
 }

@@ -15,7 +15,8 @@
 
     .box .chart {
         position: relative;
-        max-height:8em;
+        height:8em;
+        width: 100%;
     }
 
     #solar {
@@ -28,10 +29,10 @@
     }
     #Battery {
         bottom: 0;
-        left: 43%;
+        left: calc(50% - 9em);
     }
     #Load {
-        top: 50%;
+        top: calc(50% - 6.5em);
         right: 0;
     }
 
