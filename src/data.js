@@ -11,7 +11,7 @@ const options = {
   username: 'powerview',
   password: '12345678'
 }
-var host = window.location.host
+var host = window.location.host + ":8083"
 if (process.env.NODE_ENV === 'development') {
   var host = process.env.HOST
 }
@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'development') {
 // MQTT Client setup
 export const client = mqtt.connect(`ws://${host}/mqtt`, options)
 client.on('connect', function(){
-  console.log("Connected")
+  console.log("Connected to", host)
   client.subscribe('sensors/#', {})
 })
 client.on('error', (err) => {
