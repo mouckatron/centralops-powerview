@@ -61,7 +61,7 @@ var chart_config = {
   },
   scales: {
     x: {
-      display: false
+      display: true
     },
     y: {
       suggestedMin: 0
@@ -127,14 +127,32 @@ var charts = {
   })
 }
 
+var data_slots = 60
+export function setDataSlots(new_data_slots){
+  data_slots = new_data_slots
+  charts['Battery'].data.labels = [...Array(data_slots).keys()]
+  charts['Load'].data.labels = [...Array(data_slots).keys()]
+  charts['PSU'].data.labels = [...Array(data_slots).keys()]
+  charts['solar'].data.labels = [...Array(data_slots).keys()]
+}
+export function getDataSlots(){
+  return data_slots
+}
+
 function updateLocalData(measurement, sensor, value) {
   let v = (measurement != 'voltage' ? formatMilli(value) : Number(value))
   chart_data[sensor][measurement].push(v)
 
   for(let m in chart_data[sensor]) {
-    if(chart_data[sensor][m].length > 60)
+    if(chart_data[sensor][m].length > data_slots)
       chart_data[sensor][m].shift()
   }
+
+  //if(measurement == 'voltage'){ // just do it for one measurement type
+  //  let d = new Date()
+  //  charts[sensor].data.labels.push(d.getMinutes()+':'+d.getSeconds())
+  //  charts[sensor].data.labels.shift()
+  //}
 }
 
 export function switchChartData(measurement, sensor) {

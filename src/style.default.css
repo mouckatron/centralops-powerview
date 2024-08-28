@@ -4,6 +4,35 @@ body {
     font-size: 10px 1em;
 }
 
+#toolbar {
+    background-color: #006599;
+    padding: 5px;
+    text-align: right;
+    margin-bottom: 3px;
+    border-radius: 4px;
+}
+
+#zoom-size {
+    color: #fff;
+    font-family: sans-serif;
+    font-size: 1.4em;
+}
+
+#toolbar button {
+    font-size:30px;
+    color: #006599;
+    background-color: #fff;
+    min-width: 50px;
+    border-radius: 8px;
+    border-width: 0;
+    margin: 0 5px;
+}
+
+#toolbar button:active {
+    box-shadow: 0 2px #666;
+    transform: translateY(2px);
+}
+
 .box {
     border: 1px solid #000;
     border-radius: 4px;

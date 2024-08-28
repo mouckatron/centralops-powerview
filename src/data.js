@@ -13,7 +13,7 @@ const options = {
 }
 var host = window.location.host + ":8083"
 if (process.env.NODE_ENV === 'development') {
-  var host = process.env.HOST
+  var host = process.env.HOST // "192.168.0.140:8083" //
 }
 
 // MQTT Client setup
